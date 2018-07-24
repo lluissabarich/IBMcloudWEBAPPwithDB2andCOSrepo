@@ -15,7 +15,7 @@ spec:
         ports:
         - containerPort: 8000
         env:
-            # MySQLDB CF credentials are set as a K8s secret in the cluster
+            # credentials are set as a K8s secret in the cluster
           - name: VCAP_SERVICES_Appid
             valueFrom:
               secretKeyRef:
