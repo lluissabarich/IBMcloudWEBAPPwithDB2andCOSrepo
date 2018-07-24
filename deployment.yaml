@@ -11,11 +11,11 @@ spec:
     spec:
       containers:
       - name: demointegracionappidk8s
-        image: registry.eu-de.bluemix.net/lsappregistry/demointegracionappidk8s:latest
+        image: registry.eu-de.bluemix.net/lsappregistry/demointegracionappidk8s:1
         ports:
         - containerPort: 8000
         env:
-            # MySQLDB CF credentials are set as a K8s secret in the cluster 
+            # MySQLDB CF credentials are set as a K8s secret in the cluster
           - name: VCAP_SERVICES_Appid
             valueFrom:
               secretKeyRef:
