@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: myingressresource
+  annotations:
+  ingress.bluemix.net/appid-auth: "bindSecret=binding-appidsabalc namespace=default requestType=web serviceName=demointegracionappidk8s-service"
+spec:
+  tls:
+  - hosts:
+    - webappfordb2andcos.eu-de.containers.appdomain.cloud
+    secretName: webappfordb2andcos
+  rules:
+  - host: webappfordb2andcos.eu-de.containers.appdomain.cloud
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: demointegracionappidk8s-service
+          servicePort: 8000
+

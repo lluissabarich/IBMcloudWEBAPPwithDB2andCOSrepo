@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demointegracionappidk8s
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demointegracionappidk8s
+    spec:
+      containers:
+      - name: demointegracionappidk8s
+        image: registry.eu-de.bluemix.net/lsappregistry/demointegracionappidk8s:latest
+        ports:
+        - containerPort: 8000
+        env:
+            # MySQLDB CF credentials are set as a K8s secret in the cluster 
+          - name: VCAP_SERVICES_Appid
+            valueFrom:
+              secretKeyRef:
+                name: binding-appidsabalc
+                key: binding
+          - name: VCAP_SERVICES_COS
+            valueFrom:
+              secretKeyRef:
+                name: binding-sabalcservicename
+                key: UPcredentials
+          - name: VCAP_SERVICES_DB2
+            valueFrom:
+              secretKeyRef:
+                name: binding-db2forwebapp
+                key: binding
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demointegracionappidk8s-service
+  labels:
+    app: demointegracionappidk8s-service
+spec:
+  type: NodePort
+  ports:
+    # the port that this service should serve on
+    - port: 8000
+
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    app: demointegracionappidk8s
