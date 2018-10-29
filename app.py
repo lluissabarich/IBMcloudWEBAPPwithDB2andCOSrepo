@@ -195,7 +195,7 @@ def input():
 
 @app.route('/')
 def helloworld():
-	return ("App Up -- modificacion para la demo de hoy")
+	return ("App Up -- modificacion para la demo de hoy en Applus")
 
 @app.route('/result',methods = ['POST'])
 def result():
